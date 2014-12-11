@@ -1,0 +1,52 @@
+ALTSCAN Documention
+======================
+ 
+I. What is ALTSCAN?
+Alternative Splicing SCANner (ALTSCAN) is an ab initial alternative splicing predictor whose primary purpose is to predict as many transcripts as possible. It is extended from the code base of Twinscan 3.5 written in C.
+
+II. Installation
+ALTSCAN has been tested on Linux OS. Please install it as fllows.
+	Step 1	Download ALTSCAN package from http://cbb.sjtu.edu.cn/~ccwei/pub/software/ALTSCAN/ALTSCAN.php
+	Step 2	Uncompress the package as
+		    	tar -zxvf altscan_v1.0.tar.gz
+		Then you'll get a directory named altscan_v1.0/
+	Step 3	compilling
+			cd altscan_v1.0/
+			make
+		Then you can find an executable altscan under directory bin/
+
+III. Run ALTSCAN
+An example has been provided to show how to run ALTSCAN. You can find an example file named example.fa under the example/ directory.It will be used as the input of ALTSCAN.
+You have two ways to use ALTSCAN. We recommand the second method.
+
+    (1) run ALTSCAN directly. 
+		cd bin/
+		./altscan ../parameters/human.zhmm ../example/example.fa -top  >../example/example.altscan
+
+	The raw ALTSCAN result is included in example/.
+
+	A filter step is needed to remove the duplicated transcripts (two or more transcripts differ only in their UTR regions). The perl script to remove the redundant transcripts is provided in the package. The exampel command line is as follows. 
+		perl del_rep.pl ../example/example.altscan >../example/example.altscan.filtered
+
+The filtered ALTSCAN results are also provided in example/.
+
+    (2)a perl script,ALTSCAN.pl, is also provided to run ALSCAN and del_rep.pl automatically, and users can get the filtered result directly.
+		cd bin/
+		./runALTSCAN.pl ../parameters/human.zhmm ../example/exampl e.fa >../example/example.altscan.filtered
+
+IV. ALSCAN options 
+
+ALTSCAN's default settings for the TOP number is 100, you can use change_top_N.pl in bin/ directory to set the TOP number as you wish. For example, we want to set TOP number to 250:
+	cd bin/
+	./change_top_N.pl 250
+	cd ..
+	make clean
+	make
+
+Now the TOP number is set to 250.
+
+
+==================================================
+If you have any questions, please feel free to contact us.
+Email: doodlehzq@sjtu.edu.cn
+       ccwei@sjtu.edu.cn 
